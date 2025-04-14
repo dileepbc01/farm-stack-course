@@ -9,8 +9,9 @@ services:
     depends_on:
       - backend
       - frontend
+
   frontend:
-    image: "node:22"
+    build: ./frontend
     user: "node"
     working_dir: /home/node/app
     environment:
@@ -23,8 +24,8 @@ services:
     ports:
       - "3000:3000"
     command: "npm start"
+
   backend:
-    image: todo-app/backend
     build: ./backend
     volumes:
       - ./backend/:/usr/src/app
@@ -36,5 +37,4 @@ services:
     environment:
       - DEBUG=true
     env_file:
-      - path: ./.env
-        required: true
+      - ./.env
